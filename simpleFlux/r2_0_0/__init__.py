@@ -62,7 +62,7 @@ def createFields( runTime, mesh ):
 def fun_UEqn( U, phi, turbulence, p ):
   # Solve the Momentum equation
   
-  UEqn = man.fvm.div( phi, U ) + man.fvVectorMatrix( turbulence.divDevReff( U ), man.Deps( turbulence, U ) ) 
+  UEqn = man.fvm.div( phi, U ) + man( turbulence.divDevReff( U ), man.Deps( turbulence, U ) ) 
 
   UEqn.relax()
   from Foam.finiteVolume import solve
