@@ -79,9 +79,9 @@ def fun_pEqn( mesh, runTime, simple, U, phi, turbulence, p, UEqn, pRefCell, pRef
   p.ext_boundaryField().updateCoeffs()
 
   rAU = 1.0 / UEqn().A();
-  U().ext_assign( rAU * UEqn().H() )
+  U <<= rAU * UEqn().H() 
   
-  phi().ext_assign( ref.fvc.interpolate( U, ref.word( "interpolate(HbyA)" ) ) & mesh.Sf() )
+  phi <<= ref.fvc.interpolate( U, ref.word( "interpolate(HbyA)" ) ) & mesh.Sf()
   
   ref.adjustPhi(phi, U, p)
 
@@ -94,7 +94,7 @@ def fun_pEqn( mesh, runTime, simple, U, phi, turbulence, p, UEqn, pRefCell, pRef
     pEqn.solve()
 
     if nonOrth == simple.nNonOrthCorr():
-      phi().ext_assign( phi() - pEqn.flux() )
+      phi -= pEqn.flux()
       pass
     pass
   cumulativeContErr = ref.ContinuityErrs( phi, runTime, mesh, cumulativeContErr )
@@ -103,7 +103,7 @@ def fun_pEqn( mesh, runTime, simple, U, phi, turbulence, p, UEqn, pRefCell, pRef
   p.relax()
 
   # Momentum corrector
-  U().ext_assign( U() - rAU * ref.fvc.grad( p ) )
+  U -= rAU * ref.fvc.grad( p )
   U.correctBoundaryConditions()
   
   return cumulativeContErr
