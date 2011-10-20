@@ -79,9 +79,9 @@ def fun_pEqn( mesh, runTime, simple, U, phi, turbulence, p, UEqn, pRefCell, pRef
   p.ext_boundaryField().updateCoeffs()
 
   rAU = 1.0 / UEqn().A();
-  U <<= rAU * UEqn().H() 
+  U << rAU * UEqn().H() 
   
-  phi <<= ref.fvc.interpolate( U, ref.word( "interpolate(HbyA)" ) ) & mesh.Sf()
+  phi << ( ref.fvc.interpolate( U, ref.word( "interpolate(HbyA)" ) ) & mesh.Sf() )
   
   ref.adjustPhi(phi, U, p)
 
