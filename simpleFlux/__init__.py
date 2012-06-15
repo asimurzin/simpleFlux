@@ -55,19 +55,19 @@ if FOAM_REF_VERSION( "==", "010700" ):
 
 
 #-----------------------------------------------------------------------------------------
-if FOAM_REF_VERSION( ">=", "010701" ):
+if FOAM_REF_VERSION( "==", "010701" ):
     from simpleFlux.r1_7_1 import * 
     pass
 
 
 #-----------------------------------------------------------------------------------------
-if FOAM_REF_VERSION( ">=", "020000" ):
+if FOAM_REF_VERSION( "==", "020000" ) or FOAM_REF_VERSION( "==", "020001" ):
     from simpleFlux.r2_0_0 import * 
     pass
 
 
 #-----------------------------------------------------------------------------------------
-if FOAM_REF_VERSION( ">=", "020100" ):
+if FOAM_REF_VERSION( "==", "020100" ):
     from simpleFlux.r2_1_0 import * 
     pass
 
